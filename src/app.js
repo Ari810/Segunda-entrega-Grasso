@@ -1,6 +1,6 @@
 // Importo las dependencias necesarias (express, el manager de los productos y el de los carritos)
 import express from "express";
-import {manager} from "./productManager.js";
+import {ProductManager} from "./productManager.js";
 import { CartManager } from "./cartsManager.js";
 // creo la aplicacion de express
 const app = express();
@@ -8,7 +8,7 @@ const app = express();
 // Middleware para trabajar con datos JSON
 app.use(express.json());
 
-const productManager = new manager("./products.json");
+const productManager = new ProductManager("./products.json");
 const cartManager = new CartManager("./carts.json");
 
 // Manejo de productos
