@@ -35,4 +35,22 @@ export class CartManager {
         return cartsById;
     }
 
+    async addProductToCart(cartId, productId){
+        const carts = await this.getCarts();
+        const cartIndex = carts.findIndex(c => c.id === parseInt(cartId));
+
+        if (cartIndex === -1) return null;
+
+        const cart = carts[cartIndex];
+        const productIndex = cart.products.findIndex(p => p.product === parseInt(productId));
+
+        if (productIndex !== -1) {
+            cart.products[productIndex].quantity++;
+        } else {
+            cart.products.push({ product: parseInt(productId), quantity: 1 });
+        }
+
+        await fs.writeFile(this.path, JSON.stringify(carts, null, 2));
+        return cart;
+    }
 }
