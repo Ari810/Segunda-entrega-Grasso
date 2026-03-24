@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productModel } from "../models/products.model.js";
+import { productModel } from "../models/productModel.js";
 
 const router = Router();
 
@@ -25,12 +25,7 @@ router.get("/", async (req, res) => {
     }
 
 
-    const result = await productModel.paginate(filter, { 
-        limit: parseInt(limit), 
-        page: parseInt(page),
-        sort: sort ? { price: sort === 'asc' ? 1 : -1 } : {},
-        lean: true 
-    });
+    const result = await productModel.paginate(filter, options);
 
     const baseUrl = "/api/products";
 
